@@ -14,7 +14,7 @@ def day_progress():
 
 def week_progress():
     now = datetime.now()
-    start = now - timedelta(days=now.weekday())  # Monday
+    start = now - timedelta(days=now.weekday())
     start = datetime(start.year, start.month, start.day)
     end = start + timedelta(days=7)
     return get_progress(start, end)
@@ -34,22 +34,40 @@ def year_progress():
     end = datetime(now.year + 1, 1, 1)
     return get_progress(start, end)
 
-def generate_readme():
+def build_progress_section():
     dp = day_progress()
     wp = week_progress()
     mp = month_progress()
     yp = year_progress()
 
-    with open("PROGRESS.md", "w") as f:
-        f.write(f"""
-## 📊 Progress Update (Auto-generated)
-
+    return f"""
+<!-- PROGRESS-START -->
 | Time  | Progress |
 |-------|----------|
 | Day   | ![](https://progress-bar.dev/{dp}/?width=200&title=Day&color=40c057) |
 | Week  | ![](https://progress-bar.dev/{wp}/?width=200&title=Week&color=fab005) |
 | Month | ![](https://progress-bar.dev/{mp}/?width=200&title=Month&color=4dabf7) |
 | Year  | ![](https://progress-bar.dev/{yp}/?width=200&title=Year&color=be4bdb) |
-""")
+<!-- PROGRESS-END -->
+"""
 
-generate_readme()
+def update_readme():
+    with open("README.md", "r", encoding="utf-8") as f:
+        content = f.read()
+
+    progress_section = build_progress_section()
+
+    new_content = re.sub(
+        r"<!-- PROGRESS-START -->(.|\s)*?<!-- PROGRESS-END -->",
+        progress_section.strip(),
+        content,
+        flags=re.MULTILINE
+    )
+
+    with open("README.md", "w", encoding="utf-8") as f:
+        f.write(new_content)
+
+import re
+
+if __name__ == "__main__":
+    update_readme()
