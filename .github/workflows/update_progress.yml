@@ -2,29 +2,32 @@ name: 📈 Update Progress Bars
 
 on:
   schedule:
-    - cron: "0 0 * * *"  # chạy mỗi ngày lúc 0h UTC
-  workflow_dispatch:     # cho phép bạn bấm "Run workflow" thủ công
+    - cron: "0 0 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write   # 👈 Cấp quyền ghi nội dung repo
 
 jobs:
   update-progress:
     runs-on: ubuntu-latest
 
     steps:
-      - name: 📥 Lấy mã nguồn từ repo
+      - name: 📥 Checkout repo
         uses: actions/checkout@v3
 
-      - name: 🐍 Cài Python
+      - name: 🐍 Setup Python
         uses: actions/setup-python@v4
         with:
           python-version: 3.x
 
-      - name: 🧮 Chạy script Python
+      - name: 🧮 Run script
         run: python generate_progress.py
 
-      - name: 💾 Commit và đẩy file PROGRESS.md
+      - name: 💾 Commit changes
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add PROGRESS.md
-          git commit -m "📊 Update progress bars" || echo "Không có thay đổi"
+          git commit -m "📊 Update progress bars" || echo "No changes to commit"
           git push
