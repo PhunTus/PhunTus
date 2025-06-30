@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta
+import re
 
 def get_progress(start, end):
     now = datetime.now()
@@ -49,25 +50,23 @@ def build_progress_section():
 | Month | ![](https://progress-bar.dev/{mp}/?width=200&title=Month&color=4dabf7) |
 | Year  | ![](https://progress-bar.dev/{yp}/?width=200&title=Year&color=be4bdb) |
 <!-- PROGRESS-END -->
-"""
+""".strip()
 
 def update_readme():
     with open("README.md", "r", encoding="utf-8") as f:
         content = f.read()
 
-    progress_section = build_progress_section()
+    new_progress = build_progress_section()
 
-    new_content = re.sub(
+    updated = re.sub(
         r"<!-- PROGRESS-START -->(.|\s)*?<!-- PROGRESS-END -->",
-        progress_section.strip(),
+        new_progress,
         content,
         flags=re.MULTILINE
     )
 
     with open("README.md", "w", encoding="utf-8") as f:
-        f.write(new_content)
-
-import re
+        f.write(updated)
 
 if __name__ == "__main__":
     update_readme()
