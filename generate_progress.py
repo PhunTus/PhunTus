@@ -58,11 +58,11 @@ def update_readme():
 
     new_progress = build_progress_section()
 
-    updated = re.sub(
-        r"<!-- PROGRESS-START -->(.|\s)*?<!-- PROGRESS-END -->",
+        updated = re.sub(
+        r"<!-- PROGRESS-START -->(.*?)<!-- PROGRESS-END -->",
         new_progress,
         content,
-        flags=re.MULTILINE
+        flags=re.DOTALL
     )
 
     with open("README.md", "w", encoding="utf-8") as f:
