@@ -41,3 +41,8 @@
 <!-- PROGRESS-END -->
 
 ---
+## 🎨 Pixel Art
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/PhunTus/PhunTus/main/assets/pixel.gif" width="200" alt="pixel gif" />
+</p>
