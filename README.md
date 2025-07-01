@@ -14,7 +14,7 @@
 ## 🪴 MY WORKSPACE
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/PhunTus/PhunTus/main/assets/tải xuống.gif" width="200" alt="pixel gif" />
+  <img src="https://raw.githubusercontent.com/PhunTus/PhunTus/main/assets/3867543660.gif" width="200" alt="pixel gif" />
 </p>
 
 ---
